@@ -53,9 +53,9 @@ class Hyperparameters:
     # Training length.
     iterations = int(os.environ.get("ITERATIONS", 200))
     warmdown_iters = int(os.environ.get("WARMDOWN_ITERS", 1200))
-    warmup_steps = int(os.environ.get("WARMUP_STEPS", 20))
+    warmup_steps = int(os.environ.get("WARMUP_STEPS", 5))
     train_batch_tokens = int(os.environ.get("TRAIN_BATCH_TOKENS", 8192))
-    train_seq_len = int(os.environ.get("TRAIN_SEQ_LEN", 1024))
+    train_seq_len = int(os.environ.get("TRAIN_SEQ_LEN", 128))
     max_wallclock_seconds = float(os.environ.get("MAX_WALLCLOCK_SECONDS", 600.0))
     qk_gain_init = float(os.environ.get("QK_GAIN_INIT", 1.5))
 
@@ -765,8 +765,8 @@ def main() -> None:
 
     enable_cudnn_sdp(False)
     enable_flash_sdp(True)
-    enable_mem_efficient_sdp(True)
-    enable_math_sdp(True)
+    enable_mem_efficient_sdp(False)
+    enable_math_sdp(False)
 
     logfile = None
     if master_process:
